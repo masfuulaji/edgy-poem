@@ -3,15 +3,49 @@ import { createWebHistory, createRouter } from "vue-router";
 const routes = [
   {
     path: "/",
-    name: "Default",
-    component: () => import("@/components/layouts/App.vue"),
-    // children: [
-    //   {
-    //     path: "",
-    //     name: "Home",
-    //     component: () => import("@/views/dashboard/index.vue"),
-    //   },
-    // ],
+    component: () => import("@/components/layouts/Empty.vue"),
+    children: [
+      {
+        path: "",
+        name: "landing",
+        component: () => import("@/views/web/landing/index.vue"),
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    component: () => import("@/components/layouts/Empty.vue"),
+    children: [
+      {
+        path: "",
+        name: "dashboard",
+        component: () => import("@/components/layouts/Admin.vue"),
+        children: [
+          {
+            path: "",
+            name: "dashboard.index",
+            component: () => import("@/views/admin/dashboard/index.vue"),
+          },
+        ],
+      },
+      {
+        path: "user",
+        name: "user",
+        component: () => import("@/components/layouts/Admin.vue"),
+        children: [
+          {
+            path: "",
+            name: "user.index",
+            component: () => import("@/views/admin/user/index.vue"),
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("@/components/layouts/Auth.vue"),
   },
   {
     path: "/:catchAll(.*)",
