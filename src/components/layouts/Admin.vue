@@ -17,14 +17,38 @@
 </template>
 
 <script>
-import SidebarVue from '@/components/partials/Sidebar.vue'
-import NabarVue from '@/components/partials/Navbar.vue'
+import SidebarVue from "@/components/partials/Sidebar.vue";
+import NabarVue from "@/components/partials/Navbar.vue";
+import { onMounted } from "@vue/runtime-core";
+import { useAuth } from "@/stores/authStore";
+
 export default {
     components: {
         SidebarVue,
-        NabarVue
-    }
-}
+        NabarVue,
+    },
+    setup() {
+        const userAuth = useAuth();
+
+        const isUserExist = () => {
+            let data = userAuth.user;
+            if (data.email === "") {
+                userAuth.getUserAuth();
+            } else {
+                userAuth.$patch({
+                    user: {
+                        name: "",
+                        email: "",
+                    },
+                });
+                router.push({ name: "login" });
+            }
+        };
+        onMounted(() => {
+            isUserExist();
+        });
+    },
+};
 </script>
 
 <style scoped>

@@ -189,23 +189,30 @@ import { reactive } from "@vue/reactivity";
 import authService from "@/services/auth.service";
 import { onMounted } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
+import { useAuth } from "@/stores/authStore";
 
 export default {
     setup() {
         const router = useRouter();
+        const userAuth = useAuth();
         let user = reactive({
             email: "",
             password: "",
         });
         const login = () => {
             authService.login(user).then((res) => {
+                userAuth.$patch({
+                    user: {
+                        name: res.user.name,
+                        email: res.user.email,
+                    },
+                });
                 router.push({ name: "dashboard" });
             });
         };
 
         onMounted(() => {
             authService.getUser().then((res) => {
-                console.log(res);
                 if (res.data) {
                     router.push({ name: "dashboard" });
                 }

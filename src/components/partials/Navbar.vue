@@ -26,6 +26,9 @@
             <div class="container-fluid mr-auto">
                 <a class="text-xl text-black font-semibold" href="#">Navbar</a>
             </div>
+            <span class="mr-2">
+                {{ userAuth.user.email }}
+            </span>
             <div class="container-fluid">
                 <div class="dropdown relative">
                     <a
@@ -68,43 +71,10 @@
                         aria-labelledby="dropdownMenuButton2"
                     >
                         <li>
-                            <a
-                                class="
-                                    dropdown-item
-                                    text-sm
-                                    py-2
-                                    px-4
-                                    font-normal
-                                    block
-                                    w-full
-                                    whitespace-nowrap
-                                    bg-transparent
-                                    text-gray-700
-                                    hover:bg-gray-100
-                                    cursor-pointer
-                                "
-                                >Profile</a
-                            >
+                            <navbar-dropdown-item text="Profile" :customClass="['text-gray-700']"/>
                         </li>
                         <li>
-                            <a
-                                class="
-                                    dropdown-item
-                                    text-sm
-                                    py-2
-                                    px-4
-                                    font-normal
-                                    block
-                                    w-full
-                                    whitespace-nowrap
-                                    bg-transparent
-                                    text-red-600
-                                    hover:bg-gray-100
-                                    cursor-pointer
-                                "
-                                @click="logout"
-                                >Logout</a
-                            >
+                            <navbar-dropdown-item text="Logout" :customClass="['text-red-600']" @click="logout"/>
                         </li>
                     </ul>
                 </div>
@@ -115,14 +85,25 @@
 
 <script>
 import authService from "@/services/auth.service";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
+import { useAuth } from "@/stores/authStore";
+import NavbarDropdownItem from '../shared/NavbarDropdownItem.vue';
 
 export default {
+    components: { NavbarDropdownItem },
     setup() {
         const router = useRouter();
+        const userAuth = useAuth();
+
         const logout = () => {
             authService.logout().then((res) => {
                 if (res.success) {
+                    userAuth.$patch({
+                        user: {
+                            name: "",
+                            email: "",
+                        },
+                    });
                     router.push({ name: "login" });
                 }
             });
@@ -130,6 +111,7 @@ export default {
 
         return {
             logout,
+            userAuth,
         };
     },
 };
