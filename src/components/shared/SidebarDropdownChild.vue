@@ -11,7 +11,7 @@
                 pr-6
                 h-6
                 overflow-hidden
-                text-gray-700 text-ellipsis
+                text-gray-100 text-ellipsis
                 whitespace-nowrap
                 rounded
                 hover:text-blue-600 hover:bg-blue-50

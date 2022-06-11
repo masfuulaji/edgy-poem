@@ -4,12 +4,12 @@
             class="
                 flex
                 items-center
-                text-sm
+                text-base
                 py-4
                 px-6
                 h-12
                 overflow-hidden
-                text-gray-700 text-ellipsis
+                text-gray-100 text-ellipsis
                 whitespace-nowrap
                 rounded
                 hover:text-blue-600 hover:bg-blue-50

@@ -207,14 +207,14 @@ export default {
                         email: res.user.email,
                     },
                 });
-                router.push({ name: "dashboard" });
+                router.push({ name: "dashboard.index" });
             });
         };
 
         onMounted(() => {
             authService.getUser().then((res) => {
                 if (res.data) {
-                    router.push({ name: "dashboard" });
+                    router.push({ name: "dashboard.index" });
                 }
             });
         });

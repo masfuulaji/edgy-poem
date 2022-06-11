@@ -1,15 +1,29 @@
 <template>
     <div v-show="!$route.meta.NotFound" class="flex flex-wrap">
-        <div class="w-1/6">
-            <!-- Side Bar -->
-            <SidebarVue />
-        </div>
-        <div class="w-5/6">
+        <SidebarVue/>
+        <div class="w-full ml-[280px]">
             <!-- Navbar -->
             <NabarVue />
 
             <!--Content  -->
-            <div class="p-3">
+            <div
+                class="
+                    w-full
+                    flex flex-wrap
+                    items-center
+                    justify-between
+                    py-3
+                    bg-white
+                    text-gray-500
+                    hover:text-gray-700
+                    focus:text-gray-700
+                    shadow-lg
+                    p-5
+                    mt-3
+                    mb-5
+                    -ml-3
+                "
+            >
                 <router-view></router-view>
             </div>
         </div>
@@ -21,6 +35,7 @@ import SidebarVue from "@/components/partials/Sidebar.vue";
 import NabarVue from "@/components/partials/Navbar.vue";
 import { onMounted } from "@vue/runtime-core";
 import { useAuth } from "@/stores/authStore";
+import { useRouter } from "vue-router";
 
 export default {
     components: {
@@ -29,6 +44,7 @@ export default {
     },
     setup() {
         const userAuth = useAuth();
+        const router = useRouter();
 
         const isUserExist = () => {
             let data = userAuth.user;

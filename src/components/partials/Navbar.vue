@@ -11,6 +11,7 @@
             hover:text-gray-700
             focus:text-gray-700
             shadow-lg
+            -ml-3
         "
     >
         <div
