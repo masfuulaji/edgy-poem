@@ -8,7 +8,7 @@ export const useCategory = defineStore("categoryStore", {
     actions: {
         getAll() {
             CategoryService.getAll().then((res) => {
-                this.category = res.data.data;
+                this.category = res.data.data
             });
         },
     },

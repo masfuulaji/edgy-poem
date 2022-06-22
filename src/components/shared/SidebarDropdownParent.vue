@@ -25,7 +25,7 @@
             <font-awesome-icon class="mr-2 ml-auto" icon="angle-down" />
         </a>
         <ul
-            class="relative accordion-collapse collapse"
+            class="relative hidden"
             data-dp-child="dropdown-child"
             :id="idMenu"
         >
@@ -41,9 +41,11 @@ export default {
         const dropdown = (id) => {
             let dr = document.querySelectorAll("[data-dp-child]");
             dr.forEach((el) => {
-                el.classList.add("collapse");
+                if(el.id != id){
+                    el.classList.add("hidden");
+                }
             });
-            document.getElementById(id).classList.toggle("collapse");
+            document.getElementById(id).classList.toggle("hidden");
         };
         return {
             dropdown,

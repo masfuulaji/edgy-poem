@@ -30,55 +30,47 @@
             <span class="mr-2">
                 {{ userAuth.user.email }}
             </span>
-            <div class="container-fluid">
-                <div class="dropdown relative">
-                    <a
-                        class="dropdown-toggle flex items-center hidden-arrow"
-                        href="#"
-                        id="dropdownMenuButton2"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <img
-                            src="https://mdbootstrap.com/img/new/avatars/2.jpg"
-                            class="rounded-full"
-                            style="height: 25px; width: 25px"
-                            alt=""
-                            loading="lazy"
+            <div class="relative mr-5">
+                <a class="flex items-center" href="#" @click="dropdown('navbar-menu')">
+                    <img
+                        src="https://mdbootstrap.com/img/new/avatars/2.jpg"
+                        class="rounded-full"
+                        style="height: 25px; width: 25px"
+                        alt=""
+                        loading="lazy"
+                    />
+                </a>
+                <ul
+                    class="
+                        absolute
+                        bg-white
+                        text-base
+                        py-2
+                        list-none
+                        text-left
+                        rounded-lg
+                        shadow-xl
+                        mt-1
+                        m-0
+                        bg-clip-padding
+                        hidden
+                    "
+                    id="navbar-menu"
+                >
+                    <li>
+                        <navbar-dropdown-item
+                            text="Profile"
+                            :customClass="['text-gray-700']"
                         />
-                    </a>
-                    <ul
-                        class="
-                            dropdown-menu
-                            min-w-max
-                            absolute
-                            hidden
-                            bg-white
-                            text-base
-                            z-50
-                            float-left
-                            py-2
-                            list-none
-                            text-left
-                            rounded-lg
-                            shadow-lg
-                            mt-1
-                            hidden
-                            m-0
-                            bg-clip-padding
-                            border-none
-                        "
-                        aria-labelledby="dropdownMenuButton2"
-                    >
-                        <li>
-                            <navbar-dropdown-item text="Profile" :customClass="['text-gray-700']"/>
-                        </li>
-                        <li>
-                            <navbar-dropdown-item text="Logout" :customClass="['text-red-600']" @click="logout"/>
-                        </li>
-                    </ul>
-                </div>
+                    </li>
+                    <li>
+                        <navbar-dropdown-item
+                            text="Logout"
+                            :customClass="['text-red-600']"
+                            @click="logout"
+                        />
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -88,7 +80,7 @@
 import authService from "@/services/auth.service";
 import { useRouter } from "vue-router";
 import { useAuth } from "@/stores/authStore";
-import NavbarDropdownItem from '../shared/NavbarDropdownItem.vue';
+import NavbarDropdownItem from "../shared/NavbarDropdownItem.vue";
 
 export default {
     components: { NavbarDropdownItem },
@@ -110,9 +102,14 @@ export default {
             });
         };
 
+        const dropdown = (id) => {
+            document.getElementById(id).classList.toggle("hidden");
+        };
+
         return {
             logout,
             userAuth,
+            dropdown
         };
     },
 };

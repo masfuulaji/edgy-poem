@@ -57,6 +57,11 @@ const routes = [
         ],
     },
     {
+        path: "/test",
+        name: "test",
+        component: () => import("@/views/error/test.vue"),
+    },
+    {
         path: "/login",
         name: "login",
         component: () => import("@/components/layouts/Auth.vue"),
