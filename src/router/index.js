@@ -57,9 +57,9 @@ const routes = [
         ],
     },
     {
-        path: "/test",
-        name: "test",
-        component: () => import("@/views/error/test.vue"),
+        path: "/modal",
+        name: "modal",
+        component: () => import("@/components/example/modal.vue"),
     },
     {
         path: "/login",

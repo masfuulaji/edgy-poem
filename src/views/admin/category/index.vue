@@ -40,15 +40,17 @@
 
 <script>
 import { useCategory } from "@/stores/categoryStore";
-import { onMounted } from "@vue/runtime-core";
+import { onMounted, ref } from "@vue/runtime-core";
 import BorderedButton from "../../../components/shared/BorderedButton.vue";
 export default {
     components: { BorderedButton },
     setup() {
         const categoryStore = useCategory();
-        let category = categoryStore.category;
-        const getCategory = () => {
-            categoryStore.getAll();
+        let category = ref(categoryStore.category);
+        const getCategory = async () => {
+            await categoryStore.getAll().then(() => {
+                category.value = categoryStore.category;
+            });
         };
         onMounted(() => {
             getCategory();
