@@ -13,37 +13,50 @@
             />
         </div>
     </div>
-    <table class="w-full border-2 m-4">
-        <thead>
-            <tr>
-                <td class="w-[5%] p-2 border-2">No</td>
-                <td class="p-2 border-2">Name</td>
-                <td class="p-2 border-2">Description</td>
-                <td class="p-2 border-2">Action</td>
-            </tr>
-        </thead>
-        <tbody v-if="category.total > 0">
-            <tr v-for="(item, index) in category.data" :key="index">
-                <td class="p-2 border-2">#</td>
-                <td class="p-2 border-2">{{ item.name }}</td>
-                <td class="p-2 border-2">{{ item.description }}</td>
-                <!-- <td><button class="border-2"><font-awesome-icon class="m-1" icon="pen" /></button></td> -->
-            </tr>
-        </tbody>
-        <tbody v-else>
-            <tr>
-                <td colspan="4" class="p-2 border-2 text-center">No Data</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="w-[70%] my-2 mx-auto">
+        <div class="border-b border-gray-400 shadow-lg">
+            <table class="table table-compact w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <TableTD class="w-[5%]">No</TableTD>
+                        <TableTD>Name</TableTD>
+                        <TableTD>Description</TableTD>
+                        <TableTD>Action</TableTD>
+                    </tr>
+                </thead>
+                <tbody class="bg-white" v-if="category.total > 0">
+                    <tr
+                        class="whitespace-nowrap"
+                        v-for="(item, index) in category.data"
+                        :key="index"
+                    >
+                        <TableTD class="py-1">#</TableTD>
+                        <TableTD class="py-1">{{ item.name }}</TableTD>
+                        <TableTD class="py-1">{{ item.description }}</TableTD>
+                        <!-- <td><button class="border-2"><font-awesome-icon class="m-1" icon="pen" /></button></td> -->
+                    </tr>
+                </tbody>
+                <tbody v-else>
+                    <tr>
+                        <td colspan="4" class="p-2 text-center border">
+                            No Data
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <Pagination :data="category" />
 </template>
 
 <script>
 import { useCategory } from "@/stores/categoryStore";
 import { onMounted, ref } from "@vue/runtime-core";
 import BorderedButton from "../../../components/shared/BorderedButton.vue";
+import Pagination from "../../../components/shared/Pagination.vue";
+import TableTD from "../../../components/shared/TableTD.vue";
 export default {
-    components: { BorderedButton },
+    components: { BorderedButton, Pagination, TableTD },
     setup() {
         const categoryStore = useCategory();
         let category = ref(categoryStore.category);
