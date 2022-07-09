@@ -1,6 +1,6 @@
 <template>
     <div class="fixed top-0 bottom-0 lg:left-0 p-2 w-[250px] overflow-y-auto text-center bg-gray-900">
-        <div class="text-gray-100 text-xl">
+        <div class="text-gray-100 text-xl mb-5">
             <div class="p-2.5 mt-1 flex items-center">
                 <h1 class="font-bold text-gray-200 text-[15px] ml-3">My App</h1>
             </div>

@@ -6,8 +6,8 @@ export const useCategory = defineStore("categoryStore", {
         category: [],
     }),
     actions: {
-        getAll() {
-            return CategoryService.getAll().then((res) => {
+        getAll(page = 1) {
+            return CategoryService.getAll(page).then((res) => {
                 this.category = res.data.data;
             });
         },

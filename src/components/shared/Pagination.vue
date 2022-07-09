@@ -79,7 +79,15 @@
                     "
                 >
                     <PaginationLink
-                        class="rounded-l-md px-2 border-gray-300 text-gray-500 hover:bg-gray-50 bg-white"
+                        class="
+                            rounded-l-md
+                            px-2
+                            border-gray-300
+                            text-gray-500
+                            hover:bg-gray-50
+                            bg-white
+                        "
+                        @click="prevPage"
                     >
                         <span class="sr-only">Previous</span>
                         <svg
@@ -98,23 +106,75 @@
                     </PaginationLink>
                     <!-- Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
                     <PaginationLink
-                        class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 hover:bg-indigo-150"
+                        v-if="data.current_page - 2 > 0"
+                        @click="$emit('onPage', data.current_page - 2)"
+                        class="
+                            border-gray-300
+                            text-gray-500
+                            hover:bg-gray-50
+                            bg-white
+                        "
                     >
-                        1
+                        {{ data.current_page - 2 }}
                     </PaginationLink>
                     <PaginationLink
-                         class="border-gray-300 text-gray-500 hover:bg-gray-50 bg-white"
+                        v-if="data.current_page - 1 > 0"
+                        @click="$emit('onPage', data.current_page - 1)"
+                        class="
+                            border-gray-300
+                            text-gray-500
+                            hover:bg-gray-50
+                            bg-white
+                        "
                     >
-                        2
+                        {{ data.current_page - 1 }}
                     </PaginationLink>
-                    <PaginationLinkDot />
                     <PaginationLink
-                         class="border-gray-300 text-gray-500 hover:bg-gray-50 bg-white"
+                        class="
+                            z-10
+                            bg-indigo-50
+                            border-indigo-500
+                            text-indigo-600
+                            hover:bg-indigo-150
+                        "
                     >
-                        10
+                        {{ data.current_page }}
+                    </PaginationLink>
+                    <!-- <PaginationLinkDot /> -->
+                    <PaginationLink
+                        v-if="data.last_page - data.current_page > 0"
+                        @click="$emit('onPage', data.current_page + 1)"
+                        class="
+                            border-gray-300
+                            text-gray-500
+                            hover:bg-gray-50
+                            bg-white
+                        "
+                    >
+                        {{ data.current_page + 1 }}
                     </PaginationLink>
                     <PaginationLink
-                        class="rounded-r-md px-2 border-gray-300 text-gray-500 hover:bg-gray-50 bg-white"
+                        v-if="data.last_page - data.current_page > 1"
+                        @click="$emit('onPage', data.current_page + 2)"
+                        class="
+                            border-gray-300
+                            text-gray-500
+                            hover:bg-gray-50
+                            bg-white
+                        "
+                    >
+                        {{ data.current_page + 2 }}
+                    </PaginationLink>
+                    <PaginationLink
+                        class="
+                            rounded-r-md
+                            px-2
+                            border-gray-300
+                            text-gray-500
+                            hover:bg-gray-50
+                            bg-white
+                        "
+                        @click="nextPage"
                     >
                         <span class="sr-only">Next</span>
                         <!-- Heroicon name: solid/chevron-right -->
@@ -139,12 +199,28 @@
 </template>
 
 <script>
+import { ref } from '@vue/runtime-core';
 import PaginationLink from "./PaginationLink.vue";
 import PaginationLinkDot from "./PaginationLinkDot.vue";
 export default {
     components: { PaginationLink, PaginationLinkDot },
-    setup() {
-        return {};
+    props: ["data"],
+    setup(props, { emit }) {
+        const prevPage = () => {
+            if (props.data.current_page - 1 > 0) {
+                emit("onPage", props.data.current_page - 1);
+            }
+        };
+        const nextPage = () => {
+            console.log(props.data.current_page);
+            if (props.data.last_page - props.data.current_page > 0) {
+                emit("onPage", props.data.current_page + 1);
+            }
+        };
+        return {
+            prevPage,
+            nextPage,
+        };
     },
 };
 </script>

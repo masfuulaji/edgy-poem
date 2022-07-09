@@ -46,7 +46,7 @@
             </table>
         </div>
     </div>
-    <Pagination :data="category" />
+    <Pagination v-if="category.total > 0" :data="category"  @on-page="getCategory"/>
 </template>
 
 <script>
@@ -57,20 +57,22 @@ import Pagination from "../../../components/shared/Pagination.vue";
 import TableTD from "../../../components/shared/TableTD.vue";
 export default {
     components: { BorderedButton, Pagination, TableTD },
+    emits:["on-page"],
     setup() {
         const categoryStore = useCategory();
         let category = ref(categoryStore.category);
-        const getCategory = async () => {
-            await categoryStore.getAll().then(() => {
+        const getCategory = async (page) => {
+            await categoryStore.getAll(page).then(() => {
                 category.value = categoryStore.category;
             });
         };
         onMounted(() => {
-            getCategory();
+            getCategory(1);
         });
 
         return {
             category,
+            getCategory
         };
     },
 };
